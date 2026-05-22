@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
         private float _coyoteTimeCounter;
         private float _jumpBufferTime = 0.2f;
         private float _jumpBufferTimeCounter;
+        private bool _isJumping = false;
 
     [Header("Graphics & Flip")]
         public Transform VisualsTransform; 
@@ -74,6 +75,8 @@ public class PlayerController : MonoBehaviour
     private void UpdateAnimatorParameters()
     {
         _anim.SetFloat("velocityX", Mathf.Abs(_horizontal));
+        _anim.SetFloat("velocityY", _rb.linearVelocityY);
+        _anim.SetBool("isGrounded", IsGrounded());
     }
     private void FlipPlayerSprite()
     {
@@ -127,6 +130,8 @@ public class PlayerController : MonoBehaviour
         if (_coyoteTimeCounter > 0f && _jumpBufferTimeCounter > 0f)
         {
             _rb.linearVelocityY = jumpPower;
+
+            _isJumping = true;
             
             _jumpBufferTimeCounter = 0f;
             _coyoteTimeCounter = 0f; 
@@ -137,9 +142,10 @@ public class PlayerController : MonoBehaviour
         #region Smooth Variable Jump (Gravity Modification)
         
         // 1. Záchrana na zemi: Pokud stojíme nebo běžíme, gravitace je vždy normální
-        if (IsGrounded())
+        if (IsGrounded() && _rb.linearVelocityY <= 0.1f)
         {
             _rb.gravityScale = 1f;
+            _isJumping = false;
         }
         else
         {
@@ -148,8 +154,9 @@ public class PlayerController : MonoBehaviour
             {
                 // Padáme
                 _rb.gravityScale = fallMultiplier;
+                _isJumping = false;
             }
-            else if (_rb.linearVelocityY > 0.1f && !Input.GetButton("Jump"))
+            else if (_rb.linearVelocityY > 0.1f && !Input.GetButton("Jump") && _isJumping)
             {
                 // Letíme nahoru, ale pustili jsme mezerník
                 _rb.gravityScale = lowJumpMultiplier;

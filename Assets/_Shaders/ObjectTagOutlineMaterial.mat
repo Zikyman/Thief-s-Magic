@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PixelSwapShaderMaterial
-  m_Shader: {fileID: 4800000, guid: e8634de88bcb87c46af019323fa88fcf, type: 3}
+  m_Name: ObjectTagOutlineMaterial
+  m_Shader: {fileID: 4800000, guid: 5f6c1004e6b0fd24eaa071f70556a2e4, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -29,14 +29,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _OutlineWidth: 1
-    - _PulseSpeed: 4.3
-    - _Tolerance: 0.5
-    - _WaveFrequency: 50
+    - _OutlineWidth: 0
+    - _PulseSpeed: 3
+    - _WaveFrequency: 8
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 1, g: 0, b: 0, a: 1}
-    - _ReplaceColor: {r: 0, g: 1, b: 0.65682125, a: 1}
-    - _TargetColor: {r: 1, g: 0, b: 0.7843138, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
